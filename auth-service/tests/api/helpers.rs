@@ -1,8 +1,9 @@
 use auth_service::Application;
+use reqwest::Client;
 
 pub struct TestApp {
     pub address: String,
-    pub http_client: reqwest::Client,
+    pub http_client: Client,
 }
 
 impl TestApp {
@@ -19,18 +20,62 @@ impl TestApp {
         let _ = tokio::spawn(app.run());
 
         //let http_client = todo!(); // Create a Reqwest http client instance
-        let http_client = reqwest::Client::builder()
+        let http_client = Client::builder()
             .build()
-            .expect("Failed to build HTTP client");
+            .expect("Failed to build request client");
 
-        
+
         // Create new `TestApp` instance and return it
-        todo!()
+        let testapp = TestApp {
+            address,
+            http_client,
+        };
+        testapp
     }
 
     pub async fn get_root(&self) -> reqwest::Response {
         self.http_client
             .get(&format!("{}/", &self.address))
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+
+    pub async fn get_signup(&self) -> reqwest::Response {
+        self.http_client
+            .get(&format!("{}/signup", &self.address))
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+
+    pub async fn get_login(&self) -> reqwest::Response {
+        self.http_client
+            .get(&format!("{}/login", &self.address))
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+
+    pub async fn get_logout(&self) -> reqwest::Response {
+        self.http_client
+            .get(&format!("{}/logout", &self.address))
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+
+    pub async fn get_verify_2fa(&self) -> reqwest::Response {
+        self.http_client
+            .get(&format!("{}/verify-2fa", &self.address))
+            .send()
+            .await
+            .expect("Failed to execute request.")
+    }
+
+    pub async fn get_verify_token(&self) -> reqwest::Response {
+        self.http_client
+            .get(&format!("{}/verify-token", &self.address))
             .send()
             .await
             .expect("Failed to execute request.")
