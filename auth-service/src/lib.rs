@@ -1,16 +1,11 @@
 use std::error::Error;
 
-use axum::routing::post;
-use axum::{serve::Serve, Router};
+use axum::{routing::post, serve::Serve, Router};
 use tower_http::{services::ServeDir};
 
-use crate::routes::login;
-use crate::routes::logout;
-use crate::routes::signup;
-use crate::routes::verify_2fa;
-use crate::routes::verify_token;
+use crate::routes::{login, logout, signup, verify_2fa, verify_token};
 
-pub mod routes;
+mod routes;
 
 // This struct encapsulates our application-related logic.
 pub struct Application {
@@ -36,13 +31,8 @@ impl Application {
 
         // Create a new Application instance and return it
 
-        let app = Application {
-            server,
-            address,
-        };
+        Ok(Application { server, address })
 
-        Ok(app)
-        
     }
 
     pub async fn run(self) -> Result<(), std::io::Error> {

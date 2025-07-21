@@ -1,5 +1,4 @@
 use auth_service::Application;
-use reqwest::Client;
 use uuid::Uuid;
 
 pub struct TestApp {
@@ -21,17 +20,13 @@ impl TestApp {
         let _ = tokio::spawn(app.run());
 
         //let http_client = todo!(); // Create a Reqwest http client instance
-        let http_client = Client::builder()
-            .build()
-            .expect("Failed to build request client");
-
+        let http_client = Client::new();
 
         // Create new `TestApp` instance and return it
-        let testapp = TestApp {
+        Self {
             address,
             http_client,
-        };
-        testapp
+        }
     }
 
     pub async fn get_root(&self) -> reqwest::Response {

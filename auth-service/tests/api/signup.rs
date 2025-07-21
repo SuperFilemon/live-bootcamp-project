@@ -3,7 +3,7 @@ use crate::helpers::{get_random_email, TestApp};
 #[tokio::test]
 async fn should_return_422_if_malformed_input(){
     let app = TestApp::new().await;
-    let _random_email = get_random_email();
+    let _andom_email = get_random_email();
 
     //Todo: add more malformed input test cases
     let test_cases = [
@@ -12,13 +12,19 @@ async fn should_return_422_if_malformed_input(){
             "requires2FA": true
         }),
         serde_json::json!({
-            "password": "",
+            "email": random_email,
             "requires2FA": true
         }),
         serde_json::json!({
+            "email": random_email,
             "password": "password123",
-            "requires2FA": false
         }),
+        serde_json::json!({
+            "email": random_email,
+            "password": "password123",
+            "requires2FA": "true"
+        }),
+        serde_json::json!({}),
     ];
 
     for test_case in test_cases.iter() {
