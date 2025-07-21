@@ -1,7 +1,8 @@
 use std::error::Error;
 
-use axum::{response::IntoResponse, routing::post, serve::Serve, Router};
-use reqwest::StatusCode;
+use axum::routing::post;
+use axum::{response::IntoResponse, serve::Serve, Router};
+use axum::http::StatusCode;
 use tower_http::{services::ServeDir};
 
 // This struct encapsulates our application-related logic.
