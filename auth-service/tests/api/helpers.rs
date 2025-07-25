@@ -1,6 +1,8 @@
 use auth_service::Application;
 use uuid::Uuid;
 
+use reqwest::Client;
+
 pub struct TestApp {
     pub address: String,
     pub http_client: Client,

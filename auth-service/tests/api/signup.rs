@@ -3,7 +3,7 @@ use crate::helpers::{get_random_email, TestApp};
 #[tokio::test]
 async fn should_return_422_if_malformed_input(){
     let app = TestApp::new().await;
-    let _andom_email = get_random_email();
+    let random_email = get_random_email();
 
     //Todo: add more malformed input test cases
     let test_cases = [
