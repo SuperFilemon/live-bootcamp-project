@@ -1,9 +1,8 @@
 use std::error::Error;
 
 use axum::{routing::post, serve::Serve, Router};
-use tower_http::{services::ServeDir};
-
-use crate::routes::{login, logout, signup, verify_2fa, verify_token};
+use routes::{login, logout, signup, verify_2fa, verify_token};
+use tower_http::services::ServeDir;
 
 mod routes;
 
